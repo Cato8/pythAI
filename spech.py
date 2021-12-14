@@ -1,5 +1,6 @@
 import pyttsx3
 from decouple import config
+from datetime import datetime 
 
 USERNAME = config('USER')
 BOTNAME = config('BOTNAME')
@@ -22,4 +23,13 @@ def speak(text):
 
     engine.say(text)
     engine.runAndWait()
-    
+
+def greet_user():
+    hour = datetime.now().hour
+    if (hour >=6) and (hour < 16):
+        speak(f"Bonjour {USERNAME}")
+    elif (hour >= 16) and (hour < 19):
+        speak(f"Bonsoir {USERNAME}")
+    speak(f"Je suis {BOTNAME}. Comment puis-je vous aidez?")
+
+
