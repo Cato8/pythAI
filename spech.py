@@ -4,6 +4,8 @@ from datetime import datetime
 import speech_recognition as sr
 from random import choice 
 from utils import opening_text
+from pprint import pprint
+from functions.online_ops import find_my_ip, search_on_wikipedia, search_on_google, get_weather_report 
 
 USERNAME = config('USER')
 BOTNAME = config('BOTNAME')
