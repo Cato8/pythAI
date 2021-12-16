@@ -1,14 +1,15 @@
 import pyttsx3
+import requests
 from decouple import config
 from datetime import datetime 
 import speech_recognition as sr
 from random import choice 
 from utils import opening_text
 from pprint import pprint
-from functions.online_ops import find_my_ip, search_on_wikipedia, search_on_google, get_weather_report 
+from online_ops import find_my_ip, search_on_wikipedia, search_on_google 
 
-USERNAME = config('USER')
-BOTNAME = config('BOTNAME')
+USERNAME = 'Toine'
+BOTNAME = 'JARVIS'
 
 
 engine = pyttsx3.init('sapi5')
@@ -61,4 +62,29 @@ def take_user_input():
         speak("Pardonnez moi je n'ai pas compris pouvez vous répeter s'il vous plaît ?")
         query = 'None'
     return query
+
+if __name__ == '__main__':
+    greet_user()
+    while True:
+        query = take_user_input().lower()
+
+        if 'ip address' in query:
+            ip_address = find_my_ip()
+            speak(f"Votre adresse ip est {ip_address}.\n Je vous l'imprime à l'écran")
+            print(f'Votre adresse ip est {ip_address}')
+
+        elif 'wikipedia' in query:
+            speak('Que voulez vous chercher sur wikipedia {USERNAME} ?')
+            search_query = take_user_input().lower()
+            results = search_on_wikipedia(search_query)
+            speak(f"Voilà les résultats sur wikipédia, {results}")
+            speak("Je vous l'imprime à l'écran")
+            print(results)
+        
+        elif 'search on google' in query:
+            speak('Que voulez-vous chercher sur google {USERNAME}?')
+            query = take_user_input().lower()
+            search_on_google(query)
+        
+
 
